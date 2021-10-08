@@ -13,7 +13,7 @@ namespace Hashing
             int options;
             while (!isExit)
             {
-                Console.WriteLine("Choose 1.FrequencyOfWordsInSentence 2.FrequencyOfWordsInSentence");
+                Console.WriteLine("Choose 1.FrequencyOfWordsInSentence 2.FrequencyOfWordsInSentence 3.RemovalOfWord");
                 options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -46,6 +46,18 @@ namespace Hashing
                         {
                             //hashObj.Get(i);
                         }
+                        break;
+                    case 3:
+                        MyMapNode<string, string> hash1 = new MyMapNode<string, string>(5);
+                        hash1.Add("0", "To");
+                        hash1.Add("1", "be");
+                        hash1.Add("2", "or");
+                        hash1.Add("3", "not");
+                        hash1.Add("4", "to");
+                        hash1.Add("5", "be");
+                        hash1.Remove("3");
+                        string res = hash1.Get("3");
+                        Console.WriteLine("3th index value: " + res);
                         break;
                     default:
                         Console.WriteLine("Choose valid options");
