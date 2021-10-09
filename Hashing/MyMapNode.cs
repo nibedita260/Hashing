@@ -37,6 +37,18 @@ namespace Hashing
             }
             return default(V);
         }
+        public void Display(K key)
+        {
+            int position = GetArrayPosition(key);
+            LinkedList<KeyValue<K, V>> linkedList = GetLinkedList(position);
+            foreach (KeyValue<K, V> item in linkedList)
+            {
+                if (item.Key.Equals(key))
+                {
+                    Console.WriteLine("Key: " + item.Key + "\t Value: " + item.Value);
+                }
+            }
+        }
         public void Add(K key,V value)
         {
             int position = GetArrayPosition(key);
@@ -47,6 +59,32 @@ namespace Hashing
                 Value = value
             };
             linkedList.AddLast(item);
+        }
+        public int CheckHash(K key)
+        {
+            int position = GetArrayPosition(key);
+            LinkedList<KeyValue<K, V>> linkedList = GetLinkedList(position);
+            int count = 1;
+            bool itemFound = false;
+            KeyValue<K, V> foundItem = default(KeyValue<K, V>);
+            foreach (KeyValue<K, V> item in linkedList)
+            {
+                if (item.Key.Equals(key))
+                {
+                    count = Convert.ToInt32(item.Value) + 1;
+                    itemFound = true;
+                    foundItem = item;
+                }
+            }
+            if (itemFound)
+            {
+                linkedList.Remove(foundItem);
+                return count;
+            }
+            else
+            {
+                return 1;
+            }
         }
         public void Remove(K key)
         {

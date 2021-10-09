@@ -29,22 +29,28 @@ namespace Hashing
                         Console.WriteLine("5th index value: " + hash5);
                         break;
                     case 2:
-                        MyMapNode<int, string> hashObj = new MyMapNode<int, string>(5);
+                        MyMapNode<string, int> hashObj = new MyMapNode<string, int>(5);
                         string[] Paragraph;
                         string input = "Paranoids are not paranoid because they are paranoid but because they keep putting themselves deliberately into paranoid avoidable situations";
                         Paragraph = input.Split(' ');
-                        int count = 1;
-                        foreach(string i in Paragraph)
+                        int counts = 1;
+                        foreach (string i in Paragraph)
                         {
-                            count++;
-                            hashObj.Add(count,i);
+                            counts = hashObj.CheckHash(i);
+                            if (counts > 1)
+                            {
+                                hashObj.Add(i, counts);
+                            }
+                            else
+                            {
+                                hashObj.Add(i, 1);
+                            }
                         }
-                        
                         Console.WriteLine("\n---------Frequency of words in paragraph---------\n");
                         IEnumerable<string> distinct = Paragraph.Distinct<string>();
                         foreach (var i in distinct)
                         {
-                            //hashObj.Get(i);
+                            hashObj.Display(i);
                         }
                         break;
                     default:
