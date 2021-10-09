@@ -13,7 +13,7 @@ namespace Hashing
             int options;
             while (!isExit)
             {
-                Console.WriteLine("Choose 1.FrequencyOfWordsInSentence 2.FrequencyOfWordsInSentence 3.RemovalOfWord");
+                Console.WriteLine("Choose 1.FrequencyOfWordsInSentence 2.FrequencyOfWordsInSentence 3.RemovalOfWords");
                 options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -29,42 +29,67 @@ namespace Hashing
                         Console.WriteLine("5th index value: " + hash5);
                         break;
                     case 2:
-                        MyMapNode<int, string> hashObj = new MyMapNode<int, string>(5);
+                        MyMapNode<string, int> hashObj = new MyMapNode<string, int>(5);
                         string[] Paragraph;
                         string input = "Paranoids are not paranoid because they are paranoid but because they keep putting themselves deliberately into paranoid avoidable situations";
                         Paragraph = input.Split(' ');
-                        int count = 1;
-                        foreach(string i in Paragraph)
+                        int counts = 1;
+                        foreach (string i in Paragraph)
                         {
-                            count++;
-                            hashObj.Add(count,i);
+                            counts = hashObj.CheckHash(i);
+                            if (counts > 1)
+                            {
+                                hashObj.Add(i, counts);
+                            }
+                            else
+                            {
+                                hashObj.Add(i, 1);
+                            }
                         }
-                        
                         Console.WriteLine("\n---------Frequency of words in paragraph---------\n");
                         IEnumerable<string> distinct = Paragraph.Distinct<string>();
                         foreach (var i in distinct)
                         {
-                            //hashObj.Get(i);
+                            hashObj.Display(i);
                         }
                         break;
                     case 3:
-                        MyMapNode<string, string> hash1 = new MyMapNode<string, string>(5);
-                        hash1.Add("0", "To");
-                        hash1.Add("1", "be");
-                        hash1.Add("2", "or");
-                        hash1.Add("3", "not");
-                        hash1.Add("4", "to");
-                        hash1.Add("5", "be");
-                        hash1.Remove("3");
-                        string res = hash1.Get("3");
-                        Console.WriteLine("3th index value: " + res);
+                        MyMapNode<string, int> hashObj1 = new MyMapNode<string, int>(5);
+                        string[] Paragraph1;
+                        string input1 = "Paranoids are not paranoid because they are paranoid but because they keep putting themselves deliberately into paranoid avoidable situations";
+                        Paragraph1 = input1.Split(' ');
+                        int count = 1;
+                        foreach (string i in Paragraph1)
+                        {
+                            count = hashObj1.CheckHash(i);
+                            if (count > 1)
+                            {
+                                hashObj1.Add(i, count);
+                            }
+                            else
+                            {
+                                hashObj1.Add(i, 1);
+                            }
+                        }
+                        IEnumerable<string> unique = Paragraph1.Distinct<string>();
+                        foreach (var i in unique)
+                        {
+                            hashObj1.Display(i);
+                        }
+                        Console.WriteLine("\nEnter the word which you want to remove in paragraph");
+                        string removeWord = Console.ReadLine();
+                        hashObj1.Remove(removeWord);
+                        foreach (var i in unique)
+                        {
+                            hashObj1.Display(i);
+                        }
                         break;
                     default:
                         Console.WriteLine("Choose valid options");
                         break;
                 }
             }
-           
+
 
         }
     }
